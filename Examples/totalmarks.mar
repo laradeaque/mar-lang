@@ -1,0 +1,29 @@
+class Student {
+    func Student (me, name, english_marks, maths_marks, science_marks) {
+        let me.name = name
+        let me.english_marks = english_marks
+        let me.maths_marks = maths_marks
+        let me.science_marks = science_marks
+    }
+
+    func get_total_marks (me: total_marks) {
+        let total_marks = me.english_marks + me.maths_marks + me.science_marks
+        return total_marks;
+    }
+}
+let student1 = Student("Alice", 80, 85, 90)
+let student2 = Student("Bob", 70, 75, 80)
+let student3 = Student("Charlie", 90, 95, 80)
+let student4 = Student("David", 85, 75, 95)
+
+let students = [student1, student2, student3, student4]
+
+func display_student_info (student1) {
+    let total_marks = student1.get_total_marks()
+    print("Name: ", student1.name, ", Total Marks: ", total_marks)
+}
+
+for (students: student) {
+    display_student_info(student)
+}
+print('hello')

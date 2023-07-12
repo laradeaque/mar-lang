@@ -1,0 +1,34 @@
+class SavingsAccount {
+
+    func SavingsAccount(me, rate, balance){
+        let me.annualInterestRate = balance
+        let me.savingsBalance = balance
+    }
+    
+    func calculateMonthlyInterest(me) {
+        let mi = (me.savingsBalance * me.annualInterestRate * 0.01) / 12
+        
+        let me.savingsBalance = me.savingsBalance + mi
+    }
+    func modifyInterestRate(me, rate){
+        let me.annualInterestRate = rate
+    }
+}
+
+let saver1 = SavingsAccount(3, 2000)
+let saver2 = SavingsAccount(3, 3000)
+
+saver1.calculateMonthlyInterest()
+saver2.calculateMonthlyInterest()
+
+print(saver1.savingsBalance)
+print(saver2.savingsBalance)
+
+saver1.modifyInterestRate(4)
+saver2.modifyInterestRate(4)
+
+saver1.calculateMonthlyInterest()
+saver2.calculateMonthlyInterest()
+
+print(saver1.savingsBalance)
+print(saver2.savingsBalance)

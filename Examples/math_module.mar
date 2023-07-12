@@ -1,0 +1,6 @@
+from math use pi, pow
+
+let radius = 7
+let area = pi * pow(radius, 2)
+
+print("The area of the circle is: ", area)

@@ -1,0 +1,42 @@
+class Worker {
+    func Worker(me, company:) {
+        let me.company = company
+    }
+    
+    func work(me, post:) {
+        print("Employee Post  : " + post)
+    }
+}
+
+class Labour {
+    func Labour(me) {
+        #: pass
+    }
+    func work1(me, post:) {
+        print("Name: " + me.name)
+        print("Post: " + post)
+    }
+}
+
+class Employee(Worker, Labour) {
+    func Employee(me, name, id, age, company) {
+        parent Worker(company)
+        let me.name = name
+        let me.id = id
+        let me.age = age
+    }
+    
+    func details(me) {
+        print("Employee Name  : ", me.name)
+        print("Employee ID No : ", me.id)
+        print("Employee Age   : ", int(me.age))
+        print("Employee At    : ", me.company)
+    }
+}
+
+let employee = Employee("Alice", "CFEX132", 24, "ABC Limited")
+
+print()
+employee.details()
+employee.work("Secretary")
+print()

@@ -1,0 +1,37 @@
+#: use syntax
+#:
+#:      use <module name (, module name)* > from <parent module name> as <use variable>
+#: 
+#:      or
+#:      
+#:      use <module name> as <use variable>
+#:
+#:      or
+#:
+#:      use <module name> from <parent module name>
+#:
+#:      or
+#:
+#:      use <module name>
+class Test {
+    func Test (me) {
+        #: pass
+    }
+}
+from os.system use DEVICE_NAME                                  #: nested imports
+from sys use fs                                                 #: import variable
+from inheritance use Employee, Worker as (empclass, Wocxs)      #: import class
+from functions use sum                                          #: import function
+from inheritance use employee as emp                            #: import variable
+
+let employee = empclass("Alice", "CFEX132", 24, "ABC Limited")
+
+print("I am done")
+employee.details()
+#employee.work("Secretary")
+
+
+
+print()
+print()
+print()

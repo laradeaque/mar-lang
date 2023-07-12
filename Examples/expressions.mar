@@ -1,0 +1,35 @@
+let a = 12
+let b = 14
+
+# Sum
+let sum = a + b
+
+# Difference
+let minus = b -a
+
+# Multiplication
+let product = b * a
+
+# Division
+let quotient = b / a
+
+# Multiplication
+let modulus = b % a
+
+# BODMAS
+let bracket = a/2 + (a * 2 - 2)
+
+let cond1 = 2 > 4
+let cond2 = 2 < 3 
+let cond3 = 5 <= 9 
+let cond4 = 7 >= 12
+let cond5 = 11 != 12
+let cond6 = 13 == 13
+let cond7 = !False
+let cond8 = False and True
+let cond9 = False and False
+let cond10 = True or False
+
+let cond11 = "Hello" == 'Hello'
+
+print(cond11)

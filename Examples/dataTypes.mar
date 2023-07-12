@@ -1,0 +1,22 @@
+# Number data type stored as float
+let x = 1
+let y = -23
+let z = 0.989
+
+# String data type
+let str = "This is a string"
+let studentName = 'Alice'
+
+# Bool data type
+let lightsOn = False
+let taskCompleted = True
+
+# null data type
+let book = None
+let car;
+
+# Vector data type
+let letters = ["A", "B", "C", "D"]
+let numbers = []
+
+print(car)

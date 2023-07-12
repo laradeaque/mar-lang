@@ -1,0 +1,38 @@
+class Employee {
+
+	func Employee(me, name) {
+		let me.name = setName(name)
+	}
+	 
+	# Getter method
+	func getEmployeeName(me: name) { 
+		return me.name;
+	} 
+	
+	# Setter method 
+	func setEmployeeName(me, name:) { 
+		let me.name = name 
+	} 
+	
+	func result(me, name:) { 
+		print(me.name, " expected --> ", name)
+	}
+}
+func setName(name: name) {}
+
+# Object creation 
+let name = "Alice"
+let emp = Employee(name)
+
+let emp1 = Employee(name + name)
+
+func main(employee) {
+	employee.result("Alice")
+	
+	let name = "Carol"
+	employee.setEmployeeName(name)
+	employee.result("Carol")
+}
+main(emp)
+
+emp.result("Carol")

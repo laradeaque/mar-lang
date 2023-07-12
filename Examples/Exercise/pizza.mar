@@ -1,0 +1,18 @@
+class Pizza {
+
+    func Pizza (me, size, num_pepperoni, num_ham) {
+        #: (either small, medium, or large)
+        let me.size = size
+        let me.num_pepperoni = num_pepperoni
+        let me.num_ham = num_ham
+    }
+    
+    func show_pizza(me) {
+        print("Pizza size: ", me.size)
+        print("#pepperoni toppings: ", me.num_pepperoni)
+        print("#ham toppings: ", me.num_ham)
+    }
+} 
+
+let pizza = Pizza('small', 20, 30)
+pizza.show_pizza()

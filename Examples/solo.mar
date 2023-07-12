@@ -1,0 +1,54 @@
+let s = int(33)
+
+class Car {
+    func Car(me, model, owner) {
+        let me.model = model
+        let me.owner = owner
+        let me.milage = 0
+    }
+    
+    func check_milage(me : milage) {
+        return me.milage;
+    }
+}
+class Driver {
+    func Driver(me, name, car, age) {
+        let me.driver_name = name
+        let me.car = car
+        let me.age = age
+    }
+    
+    func retire(me){
+        print(me.driver_name, " retired driving ", me.car, " at the age of ", int(me.age))
+    }
+    
+    func update_age(me){
+        let me.age = me.age + 1
+    }
+}
+
+class Manufacturer {
+    #pass
+}
+let car1 = Car("Audi S8", "Alice")
+let car2 = Car("Tesla S3", "Bob")
+
+let dr1 = Driver("Alice", "Audi S3", 21)
+let dr2 = Driver("Bob", "Tesla S3", 20)
+
+
+let mclaren = Manufacturer()
+let porsche = Manufacturer()
+
+print('hello')
+print(car1.owner, " has a ", car1.model)
+print(car2.owner, " has a ", car2.model)
+
+dr1.retire()
+
+let i = 30
+while(i < s) {
+    dr1.update_age()
+    let i = i + 1
+}
+print(dr1.driver_name, " has ", int(dr1.age) , " years")

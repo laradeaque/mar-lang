@@ -1,0 +1,78 @@
+class Student {
+    func Student(me, name, cls, age, adm_no) {
+        let me.name = name
+        let me.cls = cls
+        let me.age = age
+        let me.adm_no = adm_no
+    }
+    
+    func showDetails(me){
+        print()
+        print("Student Name: ", me.name)
+        print("Student Class: ", me.cls)
+        print("Student Age: ", int(me.age))
+        print("Admission Number: ", int(me.adm_no))
+        print()
+    }
+    
+    func setMarks(me, maths, eng, kisw, sci, sscre){
+        # cannot return directly me.marks as it has not been interpreted
+        let me.marks = [maths, eng, kisw, sci, sscre]
+    }
+    
+    func getTotalMarks(me : total_marks){
+        let total_marks = 0
+        for(me.marks : mark) {
+            let total_marks = total_marks + mark
+        }
+        return total_marks;
+    }
+    
+    func updateDetail(me, field, change : change_commited) {
+        if (field == "name") {
+            let me.name = change
+        } elif (field == "cls") {
+            let me.cls = change
+        } elif (field == "age") {
+          let me.age = change
+        } elif (field == "adm_no") {
+            let me.adm_no = change
+        } else {
+            return False;
+        }
+        
+        return True;
+    }
+} 
+
+let student = Student("Arnold", "CMA", 19, 20472)
+student.showDetails()
+
+student.setMarks(87, 52, 67, 69, 82)
+let total = student.getTotalMarks()
+let mean = total / 5
+
+print("Student Name: ", student.name)
+print("Total Marks : ", total)
+print("Mean Points : ", mean)
+
+if (mean > 80) {let grade = "A"}
+elif (mean > 73) {let grade = "A-"}
+elif (mean > 66) {let grade = "B+"}
+elif (mean > 59) {let grade = "B"}
+elif (mean > 52) {let grade = "B-"}
+elif (mean > 45) {let grade = "C+"} 
+elif (mean > 38) {let grade = "C"}
+elif (mean > 31) {let grade = "C-"}
+elif (mean > 24) {let grade = "D+"}
+elif (mean > 17) {   let grade = "D"}
+elif (mean > 10 ) {let grade = "D-"}
+else { let grade = "E"}
+
+print("Mean Grade  : ", grade)
+
+if (student.updateDetail("age", student.age + 1)) {
+    student.showDetails()
+} else {
+    print("Ooops! ")
+}
