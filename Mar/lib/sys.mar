@@ -1,0 +1,16 @@
+let fs = 'WindowsFileSystem' 
+let OPERATING_SYSTEM = 'Windows'
+
+func memoryview(){
+    #: sysprint prints out only arg
+    sysprint(__scope__)
+}
+func heapview(){
+    # sysprint prints out only arg
+    #: show classes
+    sysprint(__heap__)
+}
+func stackview(){
+    #: shows functions
+    sysprint(__stack__)
+}

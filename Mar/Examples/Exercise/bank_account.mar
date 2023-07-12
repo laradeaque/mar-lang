@@ -1,0 +1,72 @@
+class Account {
+    func Account(me, balance) {
+        let me.balance = balance
+    }
+    
+    func withdraw(me, amount:) {
+        let new_balance = me.balance - amount
+        
+        if (new_balance < 0) {
+            return False, 0;
+        } else {
+            let me.balance = new_balance
+            return True, amount;
+        }
+    }
+    
+    func deposit(me, amount){
+    
+        if (amount < 0) {
+            let me.balance = balance + amount
+            return True, me.balance;
+        } else {
+            return False, me.balance;
+        }
+    }
+    
+    func show_account_balance(me) {
+        print("Account Balance: " ,me.balance)
+    }
+} 
+
+class User {
+    
+    func User(me, name, balance) {
+        let me.name = name
+        let me.account = Account(balance)
+    }
+    
+    func transact(me, type, amount:){
+        me.account.show_account_balance()
+        if (type == 'withdraw') {
+            let vec = me.account.withdraw(amount)
+            let resp = vec[0]
+            let amount = vec[1]
+        } elif (type == 'deposit') {
+            let vec = me.account.deposit(amount)
+            let resp = vec[0]
+            let amount = vec[1]
+        }
+        response_message(resp, amount, type)
+        me.account.show_account_balance()
+    }
+}
+
+func response_message(resp, amount, type) {
+    print()
+    print("-"*8)
+    if (resp == True) {
+        print("Transaction Successful!")
+    } else {
+        print("Transaction Failed!")
+    }
+    print("Transaction Type: ", type)
+    print("Amount: ", amount)
+    print("-"*8)
+    print()
+}
+
+let user = User('Alice', 3000)
+
+user.account.show_account_balance()
+user.transact('withdraw', 300)

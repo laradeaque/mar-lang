@@ -1,0 +1,40 @@
+class Cuboid {
+
+    function Cuboid(me, length, width, height) {
+        let me.length = length
+        let me.width = width
+        let me.height = height
+    }
+    
+    function area(me : (me.length * me.width * me.height)) {}
+    
+    function perimeter(me: (me.length+me.width+me.height)) {}
+    
+    #: Setters
+    function setlength(me, l:) { let me.length = l}
+
+    function setwidth(me, w:) { let me.width = w}
+
+    function setheight(me, h:) { let me.height = h}
+
+    #: Getters
+    function getlength(me: me.length) {}
+    
+    function getwidth(me: me.width) {}
+    
+    function getheight(me: me.height) {}
+} 
+
+let t = Cuboid(3,4,5)
+let t1 = Cuboid(5,6,7)
+
+
+print(" Area of Cuboid0 =(60) ", t.area()) #:60 
+print(" Perimeter of Cuboid0 =(12) ", t.perimeter()) #: 12 
+
+print(" Area of Cuboid1 =(210) ", t1.area()) #: 210
+print(" Perimeter of Cuboid1 =(18) ", t1.perimeter()) #: 18
+
+t.setwidth(10)
+print(" Area of Cuboid1=(150) '", t.area(), "' And its width is (10) ", t.getwidth())
+

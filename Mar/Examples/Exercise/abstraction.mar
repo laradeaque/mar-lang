@@ -1,0 +1,32 @@
+class Student { 
+    
+    func take_exam(me) {
+        #: pass
+    }
+} 
+
+class PhdStudent(Student) {
+    func PhdStudent(me) {
+        parent Student()
+    }
+    
+    func take_exam(me) {
+        print("Final Defense Presentation")
+    }
+}
+
+class GradStudent(Student) {
+    func GradStudent(me) {
+        parent Student()
+    }
+    
+    func take_exam(me) {
+        print("Written Paper")
+    }
+}
+
+let phd = PhdStudent()
+phd.take_exam()
+
+let grad = GradStudent()
+grad.take_exam()

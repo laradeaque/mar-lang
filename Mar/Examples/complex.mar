@@ -1,0 +1,49 @@
+let counter = Counter(1, 10)
+
+while (counter.current <= counter.end)
+{
+    print("Current value: ", counter.current)
+
+    counter.increment()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Using Classes
+let counter = Counter(1, 10)
+
+while (counter.current <= counter.end) {
+    print("Current value: " + counter.current)
+
+    counter.increment()
+}

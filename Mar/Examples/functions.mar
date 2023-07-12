@@ -1,0 +1,35 @@
+# basic syntax function
+func sum(a,b: c){
+    let c = b + a
+    return c;
+}
+
+# smart return function
+func setName(name: name) {}
+
+# smart return function with expression
+func sum2(x, y: (x + y)) {}
+
+# return in functions
+func check(age : category)
+{
+    if (age < 16) {
+        return 'Highschool Kid';
+    } elif (age < 20) {
+        return 'College Teen';
+    } elif (age < 25) {
+        return 'Young Graduant';
+    } else {
+        return 'Older';
+    }
+}
+
+let l = setName("Alice")
+
+print(l)
+print(sum(3,4))
+print(sum2(3,4))
+print(check(12))
+print(check(35))
+print(check(17))
+print(check(23))

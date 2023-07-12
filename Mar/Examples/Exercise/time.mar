@@ -1,0 +1,18 @@
+class Time {
+    func Time(me, hr, min, sec) {
+        if( min > 60 || sec > 60) {
+            print('Error ')
+            return;
+        }
+        let me.hr = hr
+        let me.min = min
+        let me.sec = sec
+    }
+    
+    func show_time(me){
+        print(me.hr," : ", me.min, " : ", me.sec)
+    }
+}
+
+let time = Time(12, 30, 50)
+time.show_time()

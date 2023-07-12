@@ -1,0 +1,107 @@
+# data types
+let a = "A"
+let b = 123
+let c = True
+let d = False
+let e = None
+let f = [1, 2, 3]
+let g = []
+
+# variable assignments
+let x = 5
+let y = 3
+
+# func definition
+func sum(a, b: ) {
+    return a + b;
+}
+
+# evaluating expressions
+#let z = sum(x, y)
+let z = 5
+# printing
+print("x + y = ", z)
+
+let z1 = z + 5
+let z2 = z1 + 20
+
+# if statement
+if (z1 > 10) {
+   print("z1 is gt 10")
+}
+
+print("z1 i asked for is here ", z1)
+print("z2 i asked for is here ", z2)
+
+# if statement
+if (z1 < 10) {
+   print("z1 is lt 10")
+} elif (z1 > 10 && z1 < 20) {
+   print("z1 is gt 10 and lt 20")
+}
+
+if (z2 < 20) {
+   print("z2 is lt 20")
+} else {
+   print("z2 is gt 20")
+}
+
+if (True) {
+   print("a = ", a)
+   print("b = ", b)
+   print("c = ", c)
+   print("d = ", d)
+   print("e = ", e)
+   print("f = ", f)
+   print("g = ", g)
+   print("x = ", x)
+   print("y = ", y)
+   print("z = ", z)
+   let prev_y = y
+   let y = 3 + z
+} 
+elif (z < 20) {
+   let p = "Z > 20"
+} else {
+   let p = "Z > 10"
+}
+
+while (z > 1) {
+    print("Current value of Z: ", z)
+    
+    let z = z - 1
+}
+print("current value of z = ", z)
+
+# vectors
+let numbers = [1, 2, 3, 4, 5, "6", "Seven", 8, 9]
+
+print(numbers)
+
+# for loop -- iterable 
+for (numbers : number) {
+    print("Number is ", number)
+}
+
+# Classes
+class Counter {
+    func Counter (me, start, end) {
+        let me.start = start
+        let me.end = end
+        let me.current = start
+    }
+
+    func increment (me) {
+        let me.current = me.current + 1
+    }
+}
+
+# Using Classes
+let counter = Counter(1, 10)
+
+while (counter.current <= counter.end)
+{
+    print("Current value: ", counter.current)
+
+    counter.increment()
+}

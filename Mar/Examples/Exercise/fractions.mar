@@ -1,0 +1,39 @@
+class Fraction {
+
+    func Fraction(me, p, q) {
+        let me.p = p
+        let me.q = q
+    }
+    
+    func set_p(me, p) {
+        let me.p = p
+    }
+    
+    func set_q(me, q) {
+        let me.q = q
+    }
+    
+    func equals(me, fraction: equal) {
+        if (me.p == fraction.p && me.q == fraction.q) {
+            let equal = True
+        } else {
+            let equal = False
+        }
+    }
+    
+    func show_fraction(me) {
+        print("Fraction: ", me.p, "/", me.q)
+    }
+} 
+
+let fraction = Fraction(2,3)
+fraction.set_p(2)
+fraction.set_q(3)
+
+fraction.show_fraction()
+
+let fraction1 = Fraction(2,3)
+print("Equal: ", fraction1.equals(fraction))
+
+let fraction2 = Fraction(3,5)
+print("Equal: ", fraction1.equals(fraction2))

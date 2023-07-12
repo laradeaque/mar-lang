@@ -1,0 +1,17 @@
+class Employee {
+    func Employee(me, name, age:) {
+        let me.name = name
+        let me.age = age
+        #: Causes error since this object is not yet declared
+        #: me is not defined
+        #: me.display()
+    }
+    
+    func display(me){
+        print("Employee Name: ", me.name)
+        print("Employee Age: ", int(me.age))
+    }
+}
+
+let employee = Employee("Alice", 21)
+employee.display()

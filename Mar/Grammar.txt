@@ -1,0 +1,77 @@
+program                     -> statement program | ε
+
+statement                   ->  function_declaration
+                            |   class_declaration
+                            |   use_statement
+                            |   parent_initialisation
+                            |   if_statement
+                            |   return_statement
+                            |   while_loop
+                            |   for_loop
+                            |   var_assign
+                            |   expression_statement
+
+function_declaration        -> "function" id_statement parameters block
+
+id_statement                -> ID
+                            |  ID (".", ID)
+                            
+use_statement               -> "from" id_statement "use" "("? module_names ")"? "as" "("? id_statement ")"?
+
+class_declaration           -> "class" id_statement parent_refs  block
+
+parent_refs                 -> "(" id_statement ")"
+
+parent_initialisation       -> "parent" id_statement args
+
+if_statement                -> "if" "(" expression ")" block elif_clauses else_clause
+
+elif_clauses                -> "elif" "(" expression ")" block elif_clauses | ε
+
+else_clause                 -> "else" block | ε
+
+return_statement            -> "return" expression_list ";"
+
+parameters                  -> "(" input_parameters [":" output_parameters] ")"
+                            
+input_parameters            -> id_statement ("," id_statement)* | ε
+
+output_parameters           -> id_statement ("," id_statement)*
+
+block                       -> "{" statement* "}"
+
+function_call               -> "(" arguments ")"
+
+arguments                   -> expression ("," expression)* | ε
+
+expression                  -> comparison_expression (("&&" | "||") comparison_expression)*
+
+comparison_expression       -> power_expression (("<" | ">" | "<=" | ">=" | "==" | "!=") power_expression)?
+
+power_expression            -> arithmetic_expression
+
+arithmetic_expression       -> term (("+" | "-") term)*
+
+term                        -> primary (("*" | "/") primary)*
+
+primary                     -> id_statement factor_suffix
+                            | NUM
+                            | STR
+                            | KEYWORD
+                            | "(" expression ")"
+                            | "[" expression_list "]"
+                            | function_call
+         
+         
+
+factor_suffix               -> "(" arguments ")"
+                            | "[" expression "]"
+                            | ε
+
+expression_statement        -> expression
+
+while_loop                  -> "while" "(" expression ")" block
+
+for_loop                    -> "for" "(" id_statement ":" id_statement (",", id_statement)* ")" block
+
+var_assign                  -> "let" id_statement "=" expression

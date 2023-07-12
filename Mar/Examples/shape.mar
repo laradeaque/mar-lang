@@ -1,0 +1,37 @@
+class Figure {
+    func Figure(me) {
+        #: pass
+    }
+    
+    func show(me){
+        #: pass
+    }
+
+}
+class Shape {
+    func Shape(me, name) {
+        let me.name = name
+    }
+    
+    func findArea(me) {
+        print(me.name, " -- Finding Area")
+    }
+} 
+
+class Circle(Figure, Shape) {
+    func Circle(me) {
+        parent Shape("Circle")
+    }
+} 
+
+class Square(Shape) {
+    func Square(me) {
+       #: parent Shape("Square")
+    }
+} 
+
+let circle = Circle()
+circle.findArea()
+
+let square = Square()
+square.findArea()

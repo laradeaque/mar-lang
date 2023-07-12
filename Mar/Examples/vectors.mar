@@ -1,0 +1,21 @@
+let vector = [1,2,3,4,5] 
+
+print(vector)
+
+print(vector[-1])
+
+
+print(vector.pop())
+vector.append(5)
+
+print(vector)
+
+let m = [1,2,3,4]
+
+#: causes an error no direct assignment
+#let m[2] = 30
+print(m)
+set(m, 2, 30)
+print(m)
+
+print("Length of ", m, " is ", length(m))
