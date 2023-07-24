@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 import re
 import os
 
@@ -17,6 +18,8 @@ LCURLY = 'LCURLY'
 RCURLY = 'RCURLY'
 COMMA = 'COMMA'
 NEGATE = 'NEGATE'
+INCREMENT = 'INCREMENT'
+DECREMENT = 'DECREMENT'
 MODULUS = 'MODULUS'
 COLON = 'COLON'
 SEMI = 'SEMI'
@@ -58,8 +61,6 @@ KEYWORDS = (
 	'break',
 	'continue',
 	'let',
-	'and',
-	'or',
 )
 BIN_OPS = (
 	'+',
@@ -83,25 +84,30 @@ PATHSPLIT = '/'
 INBUILT_FUNCTION = {
 	'print': lambda x: print(''.join(converter(x))),
 	'int': lambda x: to_int(x),
-	'readline': lambda x: input(to_str(x)),
-	'sysprint': lambda x: systemprint(x),
+	'readline': lambda x: input(*to_str(x)),
+	'sysprint': lambda x: systemprint(*x),
 	'length': lambda x: len(*x),
 	'set': lambda x: assign(*x)
 }
 
 converter = lambda x: to_str(x)
-def assign(l, key, value):
+def assign(l, key, value=None):
+	if type(l) is not dict and type(l) is not list:
+		print(f'[SetError] Cannot use set() on {l}')
+		quit()
+	if key == '::type':
+		obj = 'Vector' if type(l) is list else l['::type']
+		print(f'[TypeError] Cannot set type to a {obj}')
+		quit()
 	l[key] = value
 
-def systemprint(x, index = 0):
-	if x:
-		prout = x[0]
-		print(prout)
+def systemprint(x):
+	if type(x) is dict:
+		print(json.dumps(x, indent=4, sort_keys=False))
 	else:
 		print(x)
-		return
 
-def to_str(expression) -> list:
+def to_str(expression):
 	expr_str = []
 	for term in expression:
 		if type(term) is float or type(term) is str or type(term) is int: 
@@ -110,6 +116,11 @@ def to_str(expression) -> list:
 			expr_str.append(str(handle_list(term)))
 		elif type(term) is tuple:
 			expr_str.append(str(handle_tuple(term)))
+		elif type(term) is dict:
+			if term['::type'] == 'dict':
+				term = term.copy()
+				del term['::type']
+			expr_str.append(str(term))
 		else: expr_str.append(str(term))
 	return expr_str
 
@@ -166,10 +177,14 @@ class Lexer:
 	def lex(self):
 		lines = self.text.split("\n")
 		tokens = []
+		comment = False
 		for line in lines:
 			self.line = line
 			self.current_char = self.line[self.pos] if self.pos < len(self.line) else None
-			toks = self.get_tokens()
+			if comment:
+				comment = self.multiline_comment()
+			else:
+				toks, comment = self.get_tokens()
 			self.pos = 0
 			self.line_number += 1
 			tokens.extend(toks)
@@ -181,6 +196,13 @@ class Lexer:
 	def skip_whitespace(self):
 		while self.current_char is not None and self.current_char.isspace():
 			self.advance()
+			
+	def multiline_comment(self):
+		while self.current_char is not None:
+			if self.current_char == '*' and self.peek() == '/':
+				return False
+			self.advance()
+		return True
 
 	def skip_comment(self):
 		if self.current_char == '#':
@@ -309,11 +331,21 @@ class Lexer:
 				tokens.append(Token(DOT, '.'))
 				self.advance()
 			elif self.current_char == '+':
-				tokens.append(Token(PLUS, '+'))
-				self.advance()
+				if self.peek() == '+':
+					tokens.append(Token(INCREMENT, '++'))
+					self.advance()
+					self.advance()
+				else:
+					tokens.append(Token(PLUS, '+'))
+					self.advance()
 			elif self.current_char == '-':
-				tokens.append(Token(MINUS, '-'))
-				self.advance()
+				if self.peek() == '-':
+					tokens.append(Token(DECREMENT, '--'))
+					self.advance()
+					self.advance()
+				else:
+					tokens.append(Token(MINUS, '-'))
+					self.advance()
 			elif self.current_char == '*':
 				tokens.append(Token(ASTERISK, '*'))
 				self.advance()
@@ -321,8 +353,14 @@ class Lexer:
 				tokens.append(Token(CARET, '^'))
 				self.advance()
 			elif self.current_char == '/':
-				tokens.append(Token(SLASH, '/'))
-				self.advance()
+				if self.peek() == '*':
+					self.multiline_comment()
+					self.advance()
+					self.advance()
+					return tokens, True
+				else:
+					tokens.append(Token(SLASH, '/'))
+					self.advance()
 			elif self.current_char == '%':
 				tokens.append(Token(MODULUS, '%'))
 				self.advance()
@@ -354,7 +392,7 @@ class Lexer:
 				UnknownChar("Unknown Character", self.current_char, self.pos, self.line_number, self.text)
 				print(f"unknown char: {self.current_char}")
 				self.advance()
-		return tokens
+		return tokens, False
 
 class CmdLexer(Lexer):
 	def __init__(self):
@@ -417,6 +455,7 @@ class Parser:
 		
 		if self.current_token.type != EOF:
 			self.stop()
+
 		return result
 	
 	def program(self):
@@ -474,11 +513,10 @@ class Parser:
 		
 		function_name = self.id_statement()
 		
-		input_parameters, output_parameters = self.parameters()
+		input_parameters, output_parameters, default_args = self.parameters()
 		
 		block = self.block()
-		
-		return ('function', function_name, (input_parameters, output_parameters), block)
+		return ('function', function_name, (input_parameters, output_parameters, default_args), block)
 	
 	def parent_initialisation(self):
 		'''
@@ -642,14 +680,33 @@ class Parser:
 		if self.current_token.type == SEMI:
 			self.eat(SEMI)
 			return ('let', var_name)
+			
+		if self.current_token.type == COMMA:
+			return self.multi_assignment(var_name)
+			
 		self.eat(ASSIGN)
 		
+		var_content = self.expression()
+		
+		return ('let', var_name, var_content)
+		
+	def variable_assign(self, var_name):
+		'''
+		var assignment	->   id_statement "=" expression
+		'''
+		self.eat(ASSIGN)
+		
+		if self.current_token.type == SEMI:
+			self.eat(SEMI)
+			return ('let', var_name)
+			
 		var_content = self.expression()
 		
 		return ('let', var_name, var_content)
 	
 	def expression_statement(self):
 		result = self.expression()
+		
 		return result
 	
 	def id_statement(self):
@@ -686,12 +743,51 @@ class Parser:
 
 			while self.current_token.type == COMMA:
 				self.eat(COMMA)
+				if self.current_token.type == RBRACKET: break
 				element = self.expression()
 				elements.append(element)
 		else:
 			elements = []
 
 		self.eat(RBRACKET)
+
+		return elements
+		
+	def get_key(self):
+		key = ''
+		token = self.current_token
+		
+		if token.type == NUM:
+			self.eat(NUM)
+			return ('Number', token.value)
+		elif token.type == STR:
+			self.eat(STR)
+			return ('String', token.value)
+		else:
+			print('[TypeError] Key must be either String or Number type\n')
+			quit()
+			
+		return key
+	
+	def dict_elements(self):
+		self.eat(LCURLY)
+		
+		if self.current_token.type != RCURLY:
+			key = self.get_key()
+			self.eat(COLON)
+			value = self.expression()
+
+			elements = {key: value}
+			while self.current_token.type == SEMI:
+				self.eat(SEMI)
+				if self.current_token.type == RCURLY: break
+				key = self.get_key()
+				self.eat(COLON)
+				elements[key] = self.expression()
+		else:
+			elements = {}
+		
+		self.eat(RCURLY)
 
 		return elements
 	
@@ -718,15 +814,27 @@ class Parser:
 		'''
 		self.eat(LPAREN)
 		input_parameters = []
+		default_args = {}
 		
 		if self.current_token.type != RPAREN and self.current_token.type != COLON:
 			input_parameters.append(self.id_statement()[1])
-
+			
+			if self.current_token.type == ASSIGN:
+				self.eat(ASSIGN)
+				
+				arg_name = input_parameters[-1]
+				default_args[arg_name] = self.expression()
+			
 			while self.current_token.type == COMMA:
 				self.eat(COMMA)
 				input_parameters.append(self.id_statement()[1])
+				
+				if self.current_token.type == ASSIGN:
+					self.eat(ASSIGN)
+					
+					arg_name = input_parameters[-1]
+					default_args[arg_name] = self.expression()
 		
-
 		if self.current_token.type == COLON:
 			self.eat(COLON)
 
@@ -743,7 +851,7 @@ class Parser:
 
 		self.eat(RPAREN)
 
-		return (input_parameters, output_parameters)
+		return (input_parameters, output_parameters, default_args)
 	
 	def block(self):
 		self.eat(LCURLY)
@@ -852,7 +960,12 @@ class Parser:
 		token = self.current_token
 		
 		if token.type == ID:
-			return self.id_statement()
+			var = self.id_statement()
+			
+			if self.current_token.type in (ASSIGN, INCREMENT, DECREMENT):
+				return self.factor_suffix(var)
+				
+			return var
 		elif token.type == NUM:
 			self.eat(NUM)
 			return ('Number', token.value)
@@ -861,9 +974,9 @@ class Parser:
 			return ('String', token.value)
 		elif token.type == KEYWORD:
 			self.eat(KEYWORD)
-			if token.value == 'true':
+			if token.value == 'True':
 				return ('Bool', True)
-			elif token.value == 'false':
+			elif token.value == 'False':
 				return ('Bool', False)
 			elif token.value == 'break':
 				return ('Flow', token.value)
@@ -879,11 +992,20 @@ class Parser:
 			result = None
 			if self.current_token.type != RPAREN:
 				result = self.expression()
+			
+			expr_list = [result]
+			while self.current_token.type == COMMA:
+				self.eat(COMMA)
+				expr_list.append(self.expression())
 				
 			self.eat(RPAREN)
-			return result
+			return result if len(expr_list) == 1 else expr_list
 		elif token.type == LBRACKET:
 			return self.vector_elements()
+		elif token.type == LCURLY:
+			return self.dict_elements()
+		elif token.type == LPAREN:
+			return self.multi_assignment()
 		elif token.type == MINUS:
 			self.eat(MINUS)
 			return ('-', self.factor())
@@ -896,9 +1018,43 @@ class Parser:
 		else:
 			print(f'Unexpected token at line: {self.line_number + 1}\nToken: {token}')
 			quit()
+			
+	def multi_assignment(self, var_name):
+		
+		var_list = [var_name]
+		
+		while self.current_token.type == COMMA:
+			self.eat(COMMA)
+			var_list.append(self.id_statement())
+		
+		if self.current_token.type == SEMI:
+			self.eat(SEMI)
+			return ('multi', var_list, [None]*len(var_list))
+		
+		self.eat(ASSIGN)
+		
+		expr_list = self.expression()
+		
+		if type(expr_list) is not list: expr_list = [expr_list]
+		
+		self.eat(SEMI)
+		
+		return ('multi', var_list, expr_list)
 
 	def factor_suffix(self, expression):
 		token = self.current_token
+		
+		if token.type == ASSIGN:
+			return self.variable_assign(expression)
+		if token.type == INCREMENT:
+			self.eat(INCREMENT)
+			return ('++', expression)
+		if token.type == DECREMENT:
+			self.eat(DECREMENT)
+			return ('--', expression)
+		if token.type == COMMA:
+			self.eat(COMMA)
+			return self.multi_assignment(expression)
 		if token.type == LPAREN:
 			self.eat(LPAREN)
 			arguments = self.arguments()
@@ -977,6 +1133,7 @@ class Interpreter:
 
 	def execute_statement(self, statement, scope={}):
 		statement_type = statement[0]
+		#print(statement)
 		
 		if statement_type == 'let':
 			self.execute_variable_declaration(statement, scope)
@@ -1039,7 +1196,8 @@ class Interpreter:
 				self.create_new_scope()
 				if loop_variable is not None:
 					self.set_variable_value(loop_variable, value)
-				self.execute_block(loop_block)
+				
+				self.execute_block(loop_block, self.current_scope)
 				self.destroy_current_scope()
 			except StopIteration:
 				break
@@ -1101,8 +1259,12 @@ class Interpreter:
 			return expression
 		elif isinstance(expression, list):
 			return [self.evaluate_expression(item) for item in expression]
+		elif isinstance(expression, dict):
+			mar_dict = {self.evaluate_expression(key):self.evaluate_expression(item) for key, item in expression.items()}
+			mar_dict['::type'] = 'dict'
+			return mar_dict
 		elif expression is None:
-			return 'null'
+			return 'None'
 		elif isinstance(expression, tuple):
 			expression_type = expression[0]
 			if expression_type == 'Number':
@@ -1117,12 +1279,14 @@ class Interpreter:
 				self.break_and_continue(expression[1])
 			elif expression_type == 'var':
 				return self.get_variable_value(expression[1], scope)
-			elif expression_type in ['!', '-'] and len(expression) <= 2:
+			elif expression_type in ['!', '-', '++', '--'] and len(expression) <= 2:
 				return self.evaluate_unary_operation(expression)
 			elif expression_type in BIN_OPS:
 				return self.evaluate_binary_operation(expression)
 			elif expression_type == '.':
 				return self.evaluate_property_access(expression, scope)
+			elif expression_type == 'multi':
+				return self.evaluate_multi_assign(expression, scope)
 			elif expression_type == 'call':
 				self.stack_trace.append(self.show_varname(expression[1][1]))
 				value = self.evaluate_function_call(expression, scope)
@@ -1175,7 +1339,7 @@ class Interpreter:
 		content = ''
 		filename = self.make_filename(module_name)
 		if not filename: return None, content
-		print(content)
+		
 		try:
 			with open(filename, 'r') as fo:
 				content = fo.read()
@@ -1223,6 +1387,11 @@ class Interpreter:
 			#checking in global_scope
 			if import_module[1] in internal.global_scope:
 				value = internal.global_scope[import_module[1]]
+				if type(value) is dict:
+					type_ = value.get('::type', None)
+					if type_ and type(type_) is list:
+						for class_name in value['::type']:
+							self.classes[class_name] = internal.classes[class_name]
 				if alias: 
 					self.current_scope[alias[1]] = value
 					self.aliases[alias[1]] = import_module[1]
@@ -1277,14 +1446,27 @@ class Interpreter:
 		else: self.classes[module_name] = value
 		
 	def evaluate_index_value(self, expression):
-		vector = self.evaluate_expression(expression[1])
+		obj = self.evaluate_expression(expression[1])
 		index = self.evaluate_expression(expression[-1])
 		
-		if type(index) is not int:
+		if type(index) is not int and type(obj) is not dict:
 			self.error(f"index must be an int but found {index}")
 			
-		return vector[index]
+		return obj[index]
 		
+	def evaluate_multi_assign(self, statement, scope={}):
+		variables = statement[1]
+		expressions = [self.evaluate_expression(__) for __ in statement[-1]]
+		
+		if len(expressions) == 1 and type(expressions) is list:
+			expressions = expressions[0]
+			
+		if len(variables) != len(expressions):
+			self.error(f"Unequal Number of Assignments")
+		
+		for var_name, value in zip(variables, expressions):
+			self.set_variable_value(var_name[1], value)
+				
 	def break_and_continue(self, statement):
 		if statement == 'break':self.break_loop = True
 		elif statement == 'continue' :self.continue_loop = True
@@ -1347,6 +1529,14 @@ class Interpreter:
 			return not operand
 		elif operator == '-':
 			return -operand
+		elif operator == '++':
+			value = operand + 1
+			self.set_variable_value(expression[1][1], value)
+			return value
+		elif operator == '--':
+			value =  operand - 1
+			self.set_variable_value(expression[1][1], value)
+			return value
 		else:
 			self.error(f"Invalid unary operator: '{operator}'")
 	
@@ -1394,18 +1584,38 @@ class Interpreter:
 			)
 		elif type(identifier) is tuple:
 			object_name = identifier[1]
+			
 			object_value = self.get_variable_value(object_name)
 			if type(object_value) is list or type(object_value) is str or type(object_value) is int:
 				return self.evaluate_list_method(object_value, identifier, args)
-			class_name = self.current_scope[object_name]['::type'][0] if not self.current_scope[object_name]['::alias'] else self.current_scope[object_name]['::alias']
-			method_name = identifier[2]
 			
+			
+			if not object_value.get('::alias', None):
+				# sheck if current scope is in an object
+				if self.current_scope.get('::type', None):
+					class_name = self.current_scope['::type'][0] 
+				else:
+					class_name = object_value['::type'][0]  
+			else:
+				class_name = object_value[object_name]['::alias']
+			
+			method_name = identifier[2]
 			while type(method_name) is tuple:
 				object_name = method_name[1]
 				object_value = self.get_variable_value(object_name)
+				
 				if type(object_value) is list or type(object_value) is str or type(object_value) is int:
 					return self.evaluate_list_method(object_value, identifier)
-				class_name = self.current_scope[object_name]['::type'][0] if not self.current_scope[object_name]['::alias'] else self.current_scope[object_name]['::alias']
+				
+				if not object_value.get('::alias', None):
+					# sheck if current scope is in an object
+					if self.current_scope.get('::type', None):
+						class_name = self.current_scope['::type'][0] 
+					else:
+						class_name = object_value['::type'][0]  
+				else:
+					class_name = object_value['::alias']
+				
 				method_name = method_name[-1]
 			
 			method = self.classes.get(class_name).get(method_name)
@@ -1431,7 +1641,7 @@ class Interpreter:
 		else:
 			parameters, body = self.functions[identifier]
 		
-		input_params, output_params = parameters
+		input_params, output_params, default_args = parameters
 		
 		new_scope = {}
 		if func_scope:
@@ -1439,13 +1649,18 @@ class Interpreter:
 			input_params = input_params[1:]
 			
 		
-		if len(input_params) != len(args):
-			self.error(f"Function '{self.show_varname(identifier)}()' expects {len(input_params)} arguments, but {len(args)} {'was' if len(input_params) == 1 else 'were' } provided")
+		if len(input_params) != (len(args)+len(default_args)) and len(input_params) != len(args):
+			self.error(f"Function '{self.show_varname(identifier)}()' expects {len(input_params) - len(default_args)} arguments, but {len(args)} {'was' if len(input_params) == 1 else 'were' } provided")
 			
-		for i in range(len(input_params)):
-			parameter = input_params[i]
-			argument = self.evaluate_expression(args[i])
-			new_scope[parameter] = argument
+		for key, value in default_args.items():
+			new_scope[key] = self.evaluate_expression(value)
+		
+		if args:
+			size = len(input_params) if len(args) == len(input_params) else	len(input_params)-len(default_args)
+			for i in range(size):
+				parameter = input_params[i]
+				argument = self.evaluate_expression(args[i])
+				new_scope[parameter] = argument
 		
 		self.scopes.append(new_scope)
 		self.current_scope = new_scope
@@ -1534,20 +1749,29 @@ class Interpreter:
 		
 	def execute_special(self, constructor, args, class_dict):
 		parameters, body = constructor
-			
-		input_params, output_params = parameters
+		
+		input_params, output_params, default_args = parameters
+		
 		if input_params[0] != 'me': 
 			self.error(f"Expected 'me' as first class '{class_dict['::type']}' constructor parameter but found '{input_params[0]}'")
-			
-		if len(input_params[1:]) != len(args):
-			self.error(f"class '{class_dict['::type']}' constructor expects {len(input_params[1:]) if len(input_params[1:]) else 'no'} arguments, but {len(args)} {'was' if len(input_params) == 1 else 'were' } provided \n\n{self.evaluate_expression(args)}\n")
+		
+		
+		input_params = input_params[1:]
+		if len(input_params) != (len(args)+len(default_args)) and len(input_params) != len(args):
+			self.error(f"class '{class_dict['::type']}' constructor expects {(len(input_params) - len(default_args)) if len(input_params) else 'no'} arguments, but {len(args)} {'was' if len(args) == 1 else 'were' } provided \n\n{self.evaluate_expression(args)}\n")
 			
 		new_scope = {}
-		for i in range(len(input_params[1:])):
-			parameter = input_params[1:][i]
-			argument = self.evaluate_expression(args[i])
-			new_scope[parameter] = argument
-		input_params = input_params[1:]
+		
+		for key, value in default_args.items():
+			new_scope[key] = self.evaluate_expression(value)
+		
+		if args:
+			size = len(input_params) if len(args) == len(input_params) else	len(input_params)-len(default_args)
+			for i in range(size):
+				parameter = input_params[i]
+				argument = self.evaluate_expression(args[i])
+				new_scope[parameter] = argument
+		
 		
 		self.scopes.append(new_scope)
 		self.current_scope = new_scope
@@ -1607,3 +1831,6 @@ class Interpreter:
 			else:
 				obj_type = "Vector"
 			self.error(f"[TypeError] '{obj_type}' object has no method '{function}'")
+
+class CustomizedParser(Parser):
+	pass

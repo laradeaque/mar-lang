@@ -1151,5 +1151,179 @@ Other functions in sys module are:
 By utilizing the sys module and its functions, you can gain insights into the variables, classes, and function calls within your Mar programs.
 Finally Mar is under active development and things are going to change rapidly as i handle more functionalites in Mar
 
+
+#: New features
+
+
+#: 1. Dictionary Data Type
+Added dict types as a new data structure in the language
+
+	`
+	let d = {} # empty dict same as [] 0 '' False
+
+	value = 3
+	let e = {'key': value} # dict with one element
+
+	let f = {'k1': value; 'k2': value} # Dict with two elements
+									   # Separate with semi
+
+	print(f['k1'])    # Accessing the dict
+
+
+	############################################################################
+	#print("this", e[1])     # Causes an error(silent error as the key is not 
+	#					found)
+						
+
+	#f['k1'] = "new value" # causes an error it is not possible to 
+						  # directly assign the dict element
+	############################################################################
+
+
+	set(f, 'k1', "new value") # use set inposition to update dict element
+
+	print(f['k1'])
+	`
+
+#: 2. Expressive variable declaration
+Not a must to use let for each variable declaration one can just use 
+ expressive terms 
+Support for let keyword still in support.
+let is now mandatory used for multi-assignment statements
+	`
+	let x = 45
+
+	y = 45
+	print(x)
+	print()
+	print(y)
+	`
+
+#: 3. Auto Increment / Decrement
+	`
+	a = 10
+	b = 10
+
+	print("a = ", a)
+	print("b = ", b)
+
+	a++
+	b--
+
+	a++
+	b--
+	print("a++ = ", a)
+	print("b-- = ", b)
+	`
+
+#: 4. Printing Dictionaries without unnecessary infor
+# Not showing '::type' in dicts
+	`
+	a = [1,2,3,4,5]
+	print(a[1])
+
+	b = {1:2; 3:4; 5:6}
+	print(b)
+
+	if (b['::type'] == student1['::type']) {
+		print('Correct it is a dict')
+	} else {
+		print('Not equal')
+	}
+
+	set(a, 1, 90)
+
+	print(a)
+	`
+
+#: 5. Resolve Import errors
+Can correectly import a whole custom file
+`
+print(student1.name + ' is the name of the student')
+`
+
+#: 6. Multiple assignment
+ must end with a semi
+ must use let keyword
+	`
+	a = [1, 2, 3]
+
+	let a, b, c = a;
+
+	let d, e, f = ('A', 'B', 'C');
+
+	let g, h, i;
+
+	print(a)
+	print(b)
+	print(c)
+	print(d)
+	print(e)
+	print(f)
+	print(g)
+	print(h)
+	print(i)
+	`
+
+
+#: 7. Default arguments
+There are two types of parameters 
+	- Positional Parameters
+		Have no default value and it should be provided when 
+		calling the function
+	- Defaulted Parameters
+	   Have a default value and the another value can be provided  
+		when calling the function to overwrite the initial value
+	`
+	func function_1(param) {
+
+		# There must be a parameter passed.
+
+		print(param)
+	}
+
+	func function_2(param=None) {
+
+		# The parameter is defaulted.
+		
+		print(param)
+	}
+
+	func function_3(param_1, param_2=None) {
+
+		# parameter is defaulted and the other is positional.
+		
+		print(param_1, ' ', param_2)
+	}
+
+	func function_4(param_1, param_2) {
+
+		# both parameters are positional.
+		
+		print(param_1, ' ', param_2)
+	}
+	function_1(None)
+	function_2()
+	function_3(9)
+	function_3(1, 2)
+	function_4(1, 3)
+`
+
+
+#: 8. Multi line comments
+This are comments spanning more than one line.
+	`
+	/* 
+		This 
+			is 
+				a 
+					multi-line 
+						comment 
+		They span multi lines.
+	*/
+	`
+	`print('After comment')`
+
+
 Language creator: **Arnold Kamau Ngaruiya**
 Version: **Mar 0.0.1**
