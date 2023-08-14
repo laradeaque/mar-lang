@@ -3,7 +3,7 @@ from sys use memoryview
 let counter = 0
 
 while(counter < 5) {
-    print("Counter: ", int(counter))
+    print("Counter: ", counter)
     let counter = counter + 1
 }
 
@@ -11,7 +11,7 @@ print()
 let counter = 0
 
 while(counter < 5) {
-    print("Counter: ", int(counter))
+    print("Counter: ", counter)
     let counter = counter + 1
     if (counter == 2) {
         break
@@ -24,7 +24,7 @@ while(counter < 5) {
     if (counter == 2) {
         continue
     }
-    print("Counter: ", int(counter))
+    print("Counter: ", counter)
     let counter = counter + 1
 }
 

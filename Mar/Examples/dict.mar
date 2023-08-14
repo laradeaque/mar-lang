@@ -1,0 +1,41 @@
+from sys use heapview, memoryview, stackview
+
+print('Hello, World!')
+
+let f = [1,2,]
+let d = { 
+	1: "value1",
+	2: "value2",
+	3: "value3",
+	"Value": "new_value, dfcc"
+}
+
+func a() {
+
+stackview()
+}
+func b() {
+ a()
+}
+func c() {
+ b()
+}
+func d() {
+ c()
+}
+func main() {
+ d()
+}
+main()
+heapview()
+memoryview()
+print(d[3])
+
+set(d, 3, "new_value")
+
+print(d[3])
+
+print(d['Value'])
+
+print(d)
+print('hello')

@@ -1,28 +1,27 @@
 class Cuboid {
-
-    function Cuboid(me, length, width, height) {
-        let me.length = length
-        let me.width = width
-        let me.height = height
+    func Cuboid(me, length, width, height) {
+        me.length = length
+        me.width = width
+        me.height = height
     }
     
-    function area(me : (me.length * me.width * me.height)) {}
+    func area(me : (me.length * me.width * me.height)) {}
     
-    function perimeter(me: (me.length+me.width+me.height)) {}
+    func perimeter(me: (me.length+me.width+me.height)) {}
     
     #: Setters
-    function setlength(me, l:) { let me.length = l}
+    func setlength(me, l:) { let me.length = l}
 
-    function setwidth(me, w:) { let me.width = w}
+    func setwidth(me, w:) { let me.width = w}
 
-    function setheight(me, h:) { let me.height = h}
+    func setheight(me, h:) { let me.height = h}
 
     #: Getters
-    function getlength(me: me.length) {}
+    func getlength(me: me.length) {}
     
-    function getwidth(me: me.width) {}
+    func getwidth(me: me.width) {}
     
-    function getheight(me: me.height) {}
+    func getheight(me: me.height) {}
 } 
 
 let t = Cuboid(3,4,5)

@@ -10,8 +10,8 @@ class Student {
         print()
         print("Student Name: ", me.name)
         print("Student Class: ", me.cls)
-        print("Student Age: ", int(me.age))
-        print("Admission Number: ", int(me.adm_no))
+        print("Student Age: ", me.age)
+        print("Admission Number: ", me.adm_no)
         print()
     }
     
@@ -30,6 +30,7 @@ class Student {
     
     func updateDetail(me, field, change : change_commited) {
         if (field == "name") {
+            print(change, field)
             let me.name = change
         } elif (field == "cls") {
             let me.cls = change
@@ -45,7 +46,7 @@ class Student {
     }
 } 
 
-let student = Student("Arnold", "CMA", 19, 20472)
+let student = Student("Alice", "XXX", 21, 1234)
 student.showDetails()
 
 student.setMarks(87, 52, 67, 69, 82)

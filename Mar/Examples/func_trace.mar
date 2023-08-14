@@ -1,7 +1,7 @@
 from sys use stackview
 	
 func c() {
-	s.stackview()
+	stackview()
 }
 func b() {
 	c()
@@ -10,8 +10,8 @@ func a() {
 	b()
 }
 func main() {
-	s.stackview()
+	a()
 } 
 
 stackview()
-#main()
+main()

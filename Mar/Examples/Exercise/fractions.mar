@@ -14,7 +14,7 @@ class Fraction {
     }
     
     func equals(me, fraction: equal) {
-        if (me.p == fraction.p && me.q == fraction.q) {
+        if (me.p == fraction.p & me.q == fraction.q) {
             let equal = True
         } else {
             let equal = False

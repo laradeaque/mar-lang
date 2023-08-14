@@ -29,7 +29,7 @@ class Employee(Worker, Labour) {
     func details(me) {
         print("Employee Name  : ", me.name)
         print("Employee ID No : ", me.id)
-        print("Employee Age   : ", int(me.age))
+        print("Employee Age   : ", me.age)
         print("Employee At    : ", me.company)
     }
 }
@@ -40,3 +40,6 @@ print()
 employee.details()
 employee.work("Secretary")
 print()
+let x = 4
+let ty = True
+let y = {1: 'we', 2: 'are'}

@@ -1,4 +1,4 @@
-let s = int(33)
+let s = 33
 
 class Car {
     func Car(me, model, owner) {
@@ -19,7 +19,7 @@ class Driver {
     }
     
     func retire(me){
-        print(me.driver_name, " retired driving ", me.car, " at the age of ", int(me.age))
+        print(me.driver_name, " retired driving ", me.car, " at the age of ", me.age)
     }
     
     func update_age(me){
@@ -51,4 +51,4 @@ while(i < s) {
     dr1.update_age()
     let i = i + 1
 }
-print(dr1.driver_name, " has ", int(dr1.age) , " years")
+print(dr1.driver_name, " has ", dr1.age , " years")

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+# mar-lang
+Mar  is a modern and easy-to-learn programming language designed for various applications, including database softwares and automation.
+=======
 Mar Programming Language
 
 
@@ -1153,3 +1157,4 @@ Finally Mar is under active development and things are going to change rapidly a
 
 Language creator: **Arnold Kamau Ngaruiya**
 Version: **Mar 0.0.1**
+>>>>>>> 8d1fa30 (Initial Commit)

@@ -1,37 +1,16 @@
-#: use syntax
-#:
-#:      use <module name (, module name)* > from <parent module name> as <use variable>
-#: 
-#:      or
-#:      
-#:      use <module name> as <use variable>
-#:
-#:      or
-#:
-#:      use <module name> from <parent module name>
-#:
-#:      or
-#:
-#:      use <module name>
-class Test {
-    func Test (me) {
-        #: pass
-    }
-}
-from os.system use DEVICE_NAME                                  #: nested imports
-from sys use fs                                                 #: import variable
-from inheritance use Employee, Worker as (empclass, Wocxs)      #: import class
-from functions use sum                                          #: import function
-from inheritance use employee as emp                            #: import variable
+from inheritance use employee, x, y                                  #: import variable
+from sys use memoryview, heapview
+from Exercise.time use Time									#: import class
+print('hello')
+#from os.system use DEVICE_NAME                                  #: nested imports
+#from sys use fs                                                 #: import variable
+#
+#from functions use sum                                          #: import function
 
-let employee = empclass("Alice", "CFEX132", 24, "ABC Limited")
+#memoryview()
+#heapview()
 
-print("I am done")
 employee.details()
-#employee.work("Secretary")
 
-
-
-print()
-print()
-print()
+let time = Time(08, 07, 15)
+time.show_time()

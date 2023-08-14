@@ -9,7 +9,7 @@ class Employee {
     
     func display(me){
         print("Employee Name: ", me.name)
-        print("Employee Age: ", int(me.age))
+        print("Employee Age: ", me.age)
     }
 }
 

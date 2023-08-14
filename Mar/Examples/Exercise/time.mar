@@ -1,6 +1,6 @@
 class Time {
     func Time(me, hr, min, sec) {
-        if( min > 60 || sec > 60) {
+        if( min > 60 | sec > 60) {
             print('Error ')
             return;
         }

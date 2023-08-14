@@ -36,7 +36,7 @@ print("z2 i asked for is here ", z2)
 # if statement
 if (z1 < 10) {
    print("z1 is lt 10")
-} elif (z1 > 10 && z1 < 20) {
+} elif (z1 > 10 & z1 < 20) {
    print("z1 is gt 10 and lt 20")
 }
 

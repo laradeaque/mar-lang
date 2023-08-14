@@ -1,9 +1,15 @@
 class Student { 
-    
     func take_exam(me) {
         #: pass
+        print("Take Regular Exam")
     }
 } 
+
+class BachelorStudent(Student) {
+    func BachelorStudent(me) {
+        parent Student()
+    }
+}
 
 class PhdStudent(Student) {
     func PhdStudent(me) {
@@ -30,3 +36,6 @@ phd.take_exam()
 
 let grad = GradStudent()
 grad.take_exam()
+
+let bach = BachelorStudent()
+bach.take_exam()

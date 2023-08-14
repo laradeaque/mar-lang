@@ -1,3 +1,5 @@
+from sys use heapview, memoryview
+
 class Student {
     func Student (me, name, english_marks, maths_marks, science_marks) {
         let me.name = name
@@ -26,4 +28,3 @@ func display_student_info (student1) {
 for (students: student) {
     display_student_info(student)
 }
-print('hello')

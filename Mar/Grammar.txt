@@ -32,7 +32,7 @@ else_clause                 -> "else" block | ε
 
 return_statement            -> "return" expression_list ";"
 
-parameters                  -> "(" input_parameters [":" output_parameters] ")"
+parameters                  -> "(" input_parameters (":" output_parameters) ")"
                             
 input_parameters            -> id_statement ("," id_statement)* | ε
 
@@ -60,12 +60,15 @@ primary                     -> id_statement factor_suffix
                             | KEYWORD
                             | "(" expression ")"
                             | "[" expression_list "]"
+                            | multiassignment
                             | function_call
          
-         
+multi_assignment			| "[" id_statement ("," id_statement) "]" = (expression ("," expression));
 
 factor_suffix               -> "(" arguments ")"
                             | "[" expression "]"
+                            | '++'
+                            | '--'
                             | ε
 
 expression_statement        -> expression

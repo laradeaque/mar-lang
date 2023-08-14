@@ -1,0 +1,26 @@
+class Student {
+    func Student (me, name, eng, math, sci) {
+        me.name = name
+        me.eng = eng
+        me.math = math
+        me.sci = sci
+    }
+
+    func get_total_marks (me: (me.eng + me.math + me.sci)) {}
+    
+    func show_student(me) {
+		print("Name: ", me.name, ", Total Marks: ", me.get_total_marks())
+	}
+}
+
+
+std1 = Student("Alice", 80, 85, 90)
+std2 = Student("Bob", 70, 75, 80)
+std3 = Student("Charlie", 90, 95, 80)
+std4 = Student("David", 85, 75, 95)
+
+stds = [std1, std2, std3, std4]
+
+for (stds: std) {
+    std.show_student()
+}

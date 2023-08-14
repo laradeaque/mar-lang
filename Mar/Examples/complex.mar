@@ -1,49 +1,27 @@
-let counter = Counter(1, 10)
+class Counter {
+    func Counter (me, start, end) {
+        me.start = start
+        me.end = end
+        me.current = start
+    }
 
-while (counter.current <= counter.end)
-{
-    print("Current value: ", counter.current)
-
-    counter.increment()
+    func increment (me) {
+        let me.current = me.current + 1
+    }
 }
 
+counter = Counter(1, 10)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+while (counter.current <= counter.end) {
+    print("Current value: ",string( counter.current))
+    counter.increment()
+}
 
 # Using Classes
 let counter = Counter(1, 10)
 
 while (counter.current <= counter.end) {
-    print("Current value: " + counter.current)
+    print("Current value: " + string(counter.current))
 
     counter.increment()
 }
