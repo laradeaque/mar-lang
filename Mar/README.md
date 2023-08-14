@@ -37,10 +37,10 @@ To get started with Mar, you need to install the Mar interpreter on your machine
 Follow the steps below to install Mar:
 
 - Clone the Mar repository from GitHub:
-	`$ git clone https://github.com/laradeaque/mar.git`
+	$ git clone https://github.com/laradeaque/mar.git
 
 - Change to the mar directory:
-	`$ cd mar`
+	$ cd mar
 
 - Run the installation command:
 	`$ python setup.py install`
