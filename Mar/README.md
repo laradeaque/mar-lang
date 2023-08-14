@@ -43,10 +43,10 @@ Follow the steps below to install Mar:
 	$ cd mar
 
 - Run the installation command:
-	`$ python setup.py install`
+	$ python setup.py install
 	
 - Verify the installation by running the following command:
-	`$ mar`
+	$ mar
 If the installation was successful, you should see 'Hi' in Swahili from Mar. Mar prompt in under development.
 
 
@@ -57,12 +57,12 @@ Follow the steps below to write your first program in Mar:
 - Open a text editor and create a new file named hello.mar.
 
 - In the hello.mar file, write the following code:
-	`print('Hello, world!')`
+  	print('Hello, world!')
 
 - Save the file and navigate to its location in the terminal.
 
 - Run the Mar program using the following command:
-	`$ mar hello.mar`
+	$ mar hello.mar
 
 - You should see the output Hello, world! printed to the console.
 Congratulations! You have written and executed your first Mar program.
@@ -95,17 +95,17 @@ In this chapter, we will explore the different data types available in Mar and l
 Mar supports the following data types:
 - Number 
 	The number data type represents numeric values and can be either an integer or a floating-point number.
-	`
+
 	let x = 1
 	let y = -23
 	let z = 0.989
-	`
+
 - String
 	The string data type represents a sequence of characters enclosed in single or double quotes.
-	`
+  
 	let str = "This is a string"
 	let student_name = 'Alice'
-	`
+  
 - Bool
 	The bool data type represents boolean values, which can be either True or False.
 	`
