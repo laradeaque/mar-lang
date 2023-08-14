@@ -108,31 +108,31 @@ Mar supports the following data types:
   
 - Bool
 	The bool data type represents boolean values, which can be either True or False.
-	`
+  
 	let lights_on = False
 	let task_completed = True
-	`
+  
 - None
 	The None data type represents the absence of a value.
-	`
+  
 	let book = None
 	let car;  # Declared to have the value None
-	`
+  
 - Vector
 	The vector data type represents an ordered collection of elements. We will discuss vectors in depth in Chapter 4.
-	`
+  
 	let letters = ["A", "B", "C", "D"]
 	let numbers = []
-	`
+  
 
 # 2.2 Variable Declaration and Assignment
 In Mar, variables are declared using the let keyword, followed by the variable name and an optional initial value.
 
 
 # 2.2.1 Variable declaration example:
-	`
+	
 	let employee;
-	`
+	
 In the above example, employee is declared as a variable without an initial value. By default, the variable is 
 assigned the value None.
 NB : If initial value is not set then you should add a semicolon.
@@ -140,13 +140,13 @@ NB : If initial value is not set then you should add a semicolon.
 
 # 2.2.2 Variable assignment example:
 Variable assignment is done using the = operator.
-	`
+	
 	let x = 3
 	let y = 8
 	let name = "Bob"
 	let lights_on = false
 	let car;
-	`
+	
 In the above example, 
     - x is assigned the value 3
     - y is assigned the value 8
@@ -226,7 +226,7 @@ others.
 
 # 3.2.1 Numbers
 For example, you can use expressions to perform arithmetic operations:
-	`
+	
 	let a = 5
 	let b = 3
 	let c = a + b
@@ -236,32 +236,32 @@ For example, you can use expressions to perform arithmetic operations:
 	let y = 2
 	let z = x * y - 5
 	print(z)  # Output: 15
-	`
+	
 In this code snippet, the + operator is used to add the values of a and b, while the * operator multiplies x 
 and y, and then subtracts 5.
 
 
 # 3.2.2 String
 Expressions can also be used for string concatenation using the + operator:
-	`
+	
 	let greeting = "Hello, "
 	let name = "Alice"
 	let message = greeting + name
 	print(message)  # Output: Hello, Alice
-	`
+	
 In this example, the + operator concatenates the greeting and name strings to create the message string.
 
 
 # 3.2.3 Bool
 You can also use comparison operators to perform logical comparisons and obtain boolean results:
-	`
+	
 	let num1 = 10
 	let num2 = 5
 	let result1 = num1 > num2  # True
 	let result2 = num1 == num2  # False
 	let result3 = num1 != num2  # True
 	print(result1, result2, result3)  # Output: True False True
-	`
+	
 In this code snippet, the > operator compares num1 and num2, the == operator checks for equality, and 
 the != operator checks for inequality.
 
@@ -276,7 +276,7 @@ allows us to choose different paths of execution based on the evaluation of cond
 
 In Mar, we use if-elif-else statements for selection flow control.
 # Syntax
-	`
+	
 	if (<condition>){
 		<code block>
 	} elif (<condition>){
@@ -284,10 +284,10 @@ In Mar, we use if-elif-else statements for selection flow control.
 	else{
 		<code block>
 	}
-	`
+	
 # Example
 In the code snippet provided, we have an example of selection flow control:
-	`
+	
 	let y = 5
 	let x = 5
 
@@ -298,7 +298,7 @@ In the code snippet provided, we have an example of selection flow control:
 	} else {
 		print(x, " < ", y)
 	}
-	`
+	
 In this example, we compare the values of x and y using different conditions. Here's how the flow 
 control works:
 - The condition x > y is evaluated. Since x is not greater than y, we move to the next condition.
@@ -306,32 +306,32 @@ control works:
 	print 5 == 5.
 - The else block is skipped because the previous condition was true.
 - The output will be:
-	`
+	
 	5 == 5
-	`
+	
 Additionally, the code snippet below demonstrates the concept of truthiness in Mar. In Mar, non-zero 
 numbers, non-empty strings, and non-empty vectors are considered true. Here's an example:
-	`
+	
 	if (y) {
 		print(y)
 	}
-	`
+	
 	Since the value of y is 5 (a non-zero number), the condition is considered true, and 5 will be printed.
 
 Lastly, the example includes an empty vector g to demonstrate how empty values are evaluated in if statements:
-	`
+	
 	let g = []
 	if (g) {
 		print("Not Expected")
 	} else {
 		print("Was Expected")
 	}
-	`
-	Since g is an empty vector, it is considered false in the if statement. Therefore, the code block within 
-	the else statement will be executed, and the output will be:
-	`
+	
+Since g is an empty vector, it is considered false in the if statement. Therefore, the code block within 
+the else statement will be executed, and the output will be:
+	
 	Was Expected
-	`
+	
 Understanding selection flow control is crucial as it allows us to make decisions and execute different 
 code paths based on conditions. 
 It gives our programs the ability to respond dynamically to different scenarios, enhancing their flexibility 
@@ -344,7 +344,7 @@ and functionality.
 - The body of the if, elif, or else block is always surrounded by curly braces {}.
 
 # Example:
-	`
+	
 	if (condition) {
 		// Code block for if statement
 	} elif (condition) {
@@ -352,7 +352,7 @@ and functionality.
 	} else {
 		// Code block for else statement
 	}
-	`
+	
 - The if statement is followed by zero or more elif statements, which can also be followed by an optional 
 	else statement.
 	
@@ -373,57 +373,55 @@ explore vectors and learn how to work with them effectively.
 
 
 # 4.1.1 Defining a Vector:
-	`
 	let numbers = [1, 2, 3, 4, 5]
 	let fruits = ["apple", "banana", "orange"]
-	`
+	
 
 # 4.1.2 Accessing Vector Elements:
-	`
 	let firstElement = numbers[0]
 	let secondElement = fruits[1]
-	`
+	
 	
 # 4.2 Vector Operations
 # 4.2.1 Updating Vector Elements:
 Mar does not support direct updating of vector elements by index, such as 
-	`
+	
  	let numbers[1] = 3.
-  	`
+  	
 However, there are alternative way to achieve the desired update using set() method.
 
 Using the set() method: takes the syntax 
-	`
+	
 	set(<list>, <key>, <value>)
-	`
+	
 
 Takes a list and in modifies it in place
-	`
+	
 	set(numbers, 1, 3)
-	`
+	
 yields the Vector
-	`
+	
 	[1, 3, 3, 4, 5]
-	`
+	
 
 # 4.2.2 Iterating over a Vector:
 You can iterate over a vector using a for loop and perform operations on each element. Mar follows the LIFO 
 (Last-In, First-Out) principle while iterating over vectors.
    # Example:
-	`
+	
 	let numbers = [1, 2, 3, 4, 5]
 	for (numbers: number) {
 		print("Current number:", number)
 	}
-	`
+	
 Output: 
-	`
+	
 	Current number: 5
 	Current number: 4
 	Current number: 3
 	Current number: 2
 	Current number: 1
-	`
+	
 Note that the last items was printed first.
 
 
@@ -432,7 +430,7 @@ Mar provides a variety of vector functions that can be used to manipulate and an
 functions include *length()*, *append()*, *remove()* and *insert()*. They operate on vectors and modify them 
 accordingly.
    # Example:
-	`
+	
 	let numbers = [3, 1, 4, 2, 5]
 	print("Original numbers:", numbers)
 
@@ -447,7 +445,7 @@ accordingly.
 
 	numbers.insert(0, 3)
 	print("Updated numbers:", numbers)
-	`
+	
 By utilizing these vector methods and functions, you can efficiently update and manipulate vectors in Mar.
 Vectors are powerful data structures that allow you to work with collections of values effectively.
 
@@ -462,19 +460,19 @@ use loops effectively in Mar.
 A while loop repeats a block of code as long as a specified condition is true. Let's look at some 
 examples:
    # Example 1 - Basic While loop:
-	`
+	
 	let counter = 0
 
 	while (counter < 5) {
 		print("Counter: ", int(counter))
 		let counter = counter + 1
 	}
-	`
+	
 In the above code, the while loop will continue to execute the block of code as long as the counter 
 variable is less than 5. The counter variable is incremented by 1 in each iteration.
 
    # Example 2 - Using break:
-	`
+	
 	let counter = 0
 
 	while (counter < 5) {
@@ -484,12 +482,12 @@ variable is less than 5. The counter variable is incremented by 1 in each iterat
 			break
 		}
 	}
-	`
+	
 In this example, the break statement is used to exit the loop when the counter variable reaches the 
 value 2. This causes the loop to terminate prematurely.
 
    # Example 3 - Using continue:
-	`
+	
 	let counter = 0
 
 	while (counter < 5) {
@@ -499,7 +497,7 @@ value 2. This causes the loop to terminate prematurely.
 		print("Counter: ", int(counter))
 		let counter = counter + 1
 	}
-	`
+	
 Here, the continue statement is used to skip the iteration when the counter variable equals 2. This 
 means that the print statement is not executed when the counter is 2.
 
@@ -508,20 +506,20 @@ means that the print statement is not executed when the counter is 2.
 A for loop is used to iterate over a collection of values, such as a vector, and execute a block of 
 code for each element in the collection. They are used for iterating Vectors only or an iterable object
    # Basic syntax: 
-	`
+	
 	for(<iterable>: <loop, variable>) {
 		<block>
 	}
-	`
+	
 Let's see an example:
    # Example:
-	`
+	
 	let numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 	for (numbers: number) {
 		print("number -> ", number)
 	}
-	`
+	
 In this example, the for loop iterates over the numbers vector, assigning each element to the number 
 variable. The block of code inside the loop is executed for each element in the vector.
 
@@ -534,8 +532,8 @@ Functions are a fundamental concept in programming that allow you to organize an
 enable you to encapsulate a block of code that performs a specific task and can be called multiple 
 times throughout your program. In Mar, you can define functions using the func keyword. 
 There are two types of functions:
-	Builtin functions
-	Custom user-defined functions
+- Builtin functions
+- Custom user-defined functions
 	
 # 6.1 BuiltIn Functions
 They are functions that are avaliable to the developer from the Mar interpreter. They include
@@ -582,23 +580,23 @@ There are two types of functions:
 	
 # a) Basic Functions Syntax
 Recieve some parameter, do operation and return some expression
-	`
+	
 	func function_name(formal_parameters) {
 		// Function body
 		// Code to be executed
 		return expression;
 	}
-	`
+	
 # b) Smart Return Functions Syntax
 In smart return functions, the output_parameters section defines the expected output of the function. 
 The Mar interpreter will keep track of the variable specified in the output_parameters and 
 automatically return its value when necessary.
-	`
+	
 	func function_name(formal_parameters: output_parameters) {
 		// Function body
 		// Code to be executed
 	}
-	`
+	
 The colon is optional if there is no return to be made.
 Let's go through some examples to understand how functions work in Mar:
 
@@ -607,12 +605,12 @@ Let's go through some examples to understand how functions work in Mar:
 This are functions that are similar to any programming  language i.e. takes in parameters 
 does some internal processing then returns some value.
    # Example
-	`
+	
 	func sum(a, b) {
 		let c = a + b;
 		return c;
 	}
-	`
+	
 In this example, we define a function named sum that takes two parameters, a and b. It computes 
 the sum of a and b and assigns the result to the local variable c. 
 The function then returns the value of c.
@@ -620,19 +618,19 @@ The function then returns the value of c.
 
 # 6.3 Smart Return Functions
 This is a feature in Mar functions. To explain further lets see an example:
-	`
+	
 	func set_name(name: name) (
 	}
 	
 	let username = set_name("Alice")
-	`
+	
 This example demonstrates a function with a "smart return" feature. The setName function does not 
 explicitly return a value. However, since the function is expected to return a value as there is an 
 output parameter specified, the Mar interpreter keeps track of the variable ``name`` to return and 
 automatically returns it. This takes no extra cost in terms of time and space.
 
 Another example using updated version of the sum function we created using basic function syntax:
-	`
+	
 	func sum(a,b: (a+b)) {}
 	
 	let x = 5
@@ -641,7 +639,7 @@ Another example using updated version of the sum function we created using basic
 	let z = sum(x, y)
 	
 	print(z) #: Output is 10
-	`
+	
 	
 In this updated version, the function sum takes two parameters, a and b. The sum of a and b 
 is now specified as the output parameter (a + b). The Mar interpreter will keep track of the 
@@ -659,7 +657,7 @@ By utilizing the smart return feature, you can write more concise code and let t
 handle the return value efficiently.
 
 # Example 3: Function with Conditional Return Statements
-	`
+	
 	func check(age: category) {
 		let category;
 		if (age < 16) {
@@ -678,7 +676,7 @@ handle the return value efficiently.
 	
 	let cat = check(35)
 	print(cat) #: Older
-	`
+	
 In this example, the check function takes an age parameter and returns a category based on the 
 age value. The function uses conditional statements (if, elif, and else) to determine the 
 appropriate category and returns the corresponding value using smart return.
@@ -696,7 +694,6 @@ Exercise more on working with Smart return functions to increase readability and
 Mar interpreter handle the return value efficiently.
 
 
-
 # Chapter 7: Classes
 In Mar, classes are used to define custom data types and encapsulate related data and 
 behavior into objects. Objects are instances of a class, and they can have their own 
@@ -704,7 +701,7 @@ unique data and methods.
 Let's explore the code below to understand how classes work in Mar:
 
 # 7.1 Employee class
-	`
+	
 	class Employee {
 		func Employee(me, name, age:) {
 			let me.name = name
@@ -722,7 +719,7 @@ Let's explore the code below to understand how classes work in Mar:
 
 	let employee = Employee("Alice", 21)
 	employee.display()
-	`
+	
 In this code, we define a class called Employee with a constructor method Employee. The 
 constructor is called automatically when an object of the class is created. 
 It initializes the object's name and age attributes.
@@ -740,7 +737,7 @@ Thus calling ``me.display()`` will cause the error ``me.display() is not declare
 should be ``me`` to provide the details or features and attributes of the class. It acts as a connection
 
 # 7.2  Student class
-	`
+	
 	class Student {
 		func Student(me, name, cls, age, adm_no) {
 			let me.name = name
@@ -805,7 +802,7 @@ should be ``me`` to provide the details or features and attributes of the class.
 	} else {
 		print("Ooops! No change was made")
 	}
-	`
+	
 
 In this code, we define a class called Student. The Student class has several methods, including 
 ``show_details()``, ``set_marks``, ``get_total_marks``, and ``update_detail``. Each method takes 
@@ -872,9 +869,9 @@ parameters and class method body. The last key-item in the body is an important 
 
 When we want to create an object Mar now just creates a dict with the following:
 
-	`
+	
 	{'me': {}, '::type':[], '::alias': None, 1: []}
-	`
+	
 The `me` is used to hold all class attributes/features. The `::type` is a list that states the 
 classes which the object will be made up of. These is important for the inheritance(discussed 
 in the next chapter). The list will help us when searching for object methods. The first element 
@@ -900,7 +897,7 @@ Let's consider the code below to understand inheritance:
 
 
 # 9.1 Example 1
-	`
+	
 	class Worker {
 		func Worker(me, company:) {
 			let me.company = company
@@ -944,7 +941,7 @@ Let's consider the code below to understand inheritance:
 	employee.details()
 	employee.work("Secretary")
 	print()
-	`
+	
 	
 In this code, we have three classes: Worker, Labour, and Employee.
 
@@ -979,33 +976,33 @@ child class to inherit and initialize the attributes defined in the parent class
 
 
 # 9.2 Example 2
-class Shape {
-    func Shape(me, name) {
-        let me.name = name
-    }
-    
-    func find_area(me) {
-        print(me.name, " -- Finding Area")
-    }
-} 
-
-class Circle(Shape) {
-    func Circle(me) {
-        parent Shape("Circle")
-    }
-} 
-
-class Square(Shape) {
-    func Square(me) {
-       #: parent Shape("Square")
-    }
-} 
-
-let circle = Circle()
-circle.find_area()
-
-let square = Square()
-square.find_area() #: cause error as parent is not invoked
+	class Shape {
+	    func Shape(me, name) {
+	        let me.name = name
+	    }
+	    
+	    func find_area(me) {
+	        print(me.name, " -- Finding Area")
+	    }
+	} 
+	
+	class Circle(Shape) {
+	    func Circle(me) {
+	        parent Shape("Circle")
+	    }
+	} 
+	
+	class Square(Shape) {
+	    func Square(me) {
+	       #: parent Shape("Square")
+	    }
+	} 
+	
+	let circle = Circle()
+	circle.find_area()
+	
+	let square = Square()
+	square.find_area() #: cause error as parent is not invoked
 
 In this example, we have three classes: Shape and their child classes Circle and Square. 
 The Shape class is a base class that serves as a common parent for all figures. It has the 
@@ -1051,14 +1048,14 @@ from parent_module use module as alias
 Note `as` is not working properly **so do not use it for this version(we are working on it)**
 
 Here's an example to illustrate the usage of the import statement:
-	`
+	
 	from math use pi, pow
 
 	let radius = 5
 	let area = pi * pow(radius, 2)
 
 	print("The area of the circle is: ", area)
-	`
+	
 	
 In this example, we import the math module using the from keyword, and we assign it an alias m 
 using the as keyword. This allows us to refer to the functions and constants from the math module 
@@ -1089,7 +1086,7 @@ The sys module provides some useful functions to inspect the current scope, clas
 functions. 
 
 Here's an example of how you can use the sys module and its functions:
-	`
+	
 	from sys use memoryview
 
 	let x = 10
@@ -1097,22 +1094,20 @@ Here's an example of how you can use the sys module and its functions:
 	let z = True
 
 	memoryview()  # Prints the variables in the current scope
-	`
-	Output
-	`
+	
+Output
+	
 	{s: {...}, x:10, y: 'Hello', z: True}
-	`
+	
 	
 The memoryview() function from the sys module will print the variables in the current scope. 
 In this example, it will display the variables s, x, y, and z along with their corresponding 
 values.
 
 Other functions in sys module are:
-	1. **heapview()**
-	Prints classes that are defined in the program
-	
-	Example
-	`
+1. **heapview()**
+Prints classes that are defined in the program
+# Example
 	from sys use heapview
 
 	class MyClass {
@@ -1122,15 +1117,15 @@ Other functions in sys module are:
 	}
 
 	heapview()  # Prints the classes defined
-	`
-	Output
+	
+# Output
 	`
 	{'MyClass': {'my_function': (([me], []), [('call', ('.', 's', 'stackview'), [])])}}
 	`
 	
-	2. **stackview()**
-	Prints the stack trace of function calls
-	`
+2. **stackview()**
+Prints the stack trace of function calls
+	
 	from sys use stackview
 	
 	func c() {
@@ -1145,9 +1140,9 @@ Other functions in sys module are:
 	func main() {
 		a()
 	}
-	`
-	
-	
+	main()
+ # Output
+	[main, a, b, c, stackview]
 
 By utilizing the sys module and its functions, you can gain insights into the variables, classes, and function calls within your Mar programs.
 Finally Mar is under active development and things are going to change rapidly as i handle more functionalites in Mar
