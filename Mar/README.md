@@ -32,6 +32,7 @@ In this section, we will explore the key features of Mar and understand why it i
 
 
 1.2 Installation
+
 To get started with Mar, you need to install the Mar interpreter on your machine. 
 Follow the steps below to install Mar:
 
